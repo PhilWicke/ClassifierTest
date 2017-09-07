@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
+'''
+This script will allow to take a text file with tab separated data and apply 
+different classify algorithms to it. 
+'''
 from sklearn.naive_bayes import GaussianNB
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn import svm
 import numpy as np
 
-'''
-This script will allow to take a text file with tab separated data and apply 
-different classify algorithms to it. 
-'''
-
-# Enter filePath
-filePath = './testFileN10x1000.txt'
+#filePath = './testFileN10x1000.txt'
+filePath  = './irisFile.txt'
 
 # Processing tab-separated file
 table = np.loadtxt(filePath, delimiter='\t')
@@ -79,6 +78,4 @@ print("Mean squared error: %.2f"
       % mean_squared_error(targ_test, data_pred))
 # Explained variance score: 1 is perfect prediction
 print('Variance score: %.2f' % r2_score(targ_test, data_pred))
-
-
 
