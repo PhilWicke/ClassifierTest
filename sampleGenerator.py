@@ -19,4 +19,4 @@ with open(filePath, 'w') as f:
             # set range of floats for data
             f.write(str(random.uniform(0,1))+'\t')
         # set range of ints for data
-        f.write(str(random.randint(0,5))+'\n')   
+        f.write(str(random.randint(1,3))+'\n')   
