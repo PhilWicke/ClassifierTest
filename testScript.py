@@ -50,7 +50,7 @@ print("Success rate of a SVC w/ polynomial deg. is:\t %.3f \n" % (cross_val_scor
 #%% LINEAR REGRESSION
 
 # Percentage of training data
-perc_train = 0.1
+perc_train = 0.7
 
 perc_test  = 1-perc_train
 train_lim  = int(len(data)*perc_train)
