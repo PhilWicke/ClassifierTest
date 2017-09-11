@@ -5,9 +5,10 @@ separated files in a modular structure of a class.
 import os.path
 import numpy as np
 from sklearn.externals import joblib
+from sklearn.naive_bayes import GaussianNB
 
 
-class classifyTester:
+class testerClass:
     
     def __init__(self):
         # class variables
@@ -38,11 +39,20 @@ class classifyTester:
         # Converting output into actual integer values
         self.target = list(map(int, target))
     
+    '''
+    Naive Gaussian Bayes Classifier:
+    GNB algorithm for classification. The likelihood of the features
+    is assumed to be Gaussian.    
+    '''
+    def train_GNB(self):
+        gnb = GaussianNB()
+        self.model = gnb.fit(self.data, self.target)
+        y_pred = self.model.predict(self.data)
+        successRate = 1-(1/self.data.shape[0])*(self.target != y_pred).sum()
+        print("Success rate of Gaussian Naive Bayes is:\t %.3f \n" % (successRate))
         
     def save_model(self,outputfilepath):
-        # Get filename
-        filename = input('Please provide filename of model(s), extension is added.')
         # Create model file        
-        filename = outputfilepath+filename+'.joblib.pkl'
+        filename = outputfilepath+'.joblib.pkl'
         joblib.dump(self.model, filename, compress=9)
         
