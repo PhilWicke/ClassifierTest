@@ -6,6 +6,7 @@ import os.path
 import numpy as np
 from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
+from sklearn import svm
 
 
 class testerClass:
@@ -56,10 +57,20 @@ class testerClass:
         print("Success rate of Gaussian Naive Bayes is:\t %.3f \n" % (successRate))
         
     '''
-    
+    Support Vector Machine:
+        C       : Penalty parameter C of the error term.
+        kernel  : string, optional (default=’rbf’)
+                  Specifies the kernel type to be used in the algorithm.
+                  ‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’ or a callable.
+        degree  : Degree of the polynomial kernel function (‘poly’).
+        gamma   : Kernel coefficient for ‘rbf’, ‘poly’ and ‘sigmoid’. 
     '''
-    def train_SVC(kernel="rbf",C=1.0,degree=0.7,degree=3)
+    def train_SVC(self,kernel="rbf",C=1.0,gamma=0.7,degree=3):
+        self.model = svm.SVC(kernel=kernel,C=C,gamma=gamma,degree=degree)
+        self.model = self.model.fit(self.data, self.target)
         
+        cross_val_score = self.model.score(self.data,self.target)
+        print("Success rate of a SVC w/ linear kernel is:\t %.3f " % (cross_val_score))
         
         
     '''
