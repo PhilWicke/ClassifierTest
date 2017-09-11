@@ -10,6 +10,10 @@ from sklearn.naive_bayes import GaussianNB
 
 class testerClass:
     
+    '''
+    Initializing the class with four variables for data, target, model and
+    filepath.
+    '''
     def __init__(self):
         # class variables
         self.data        = []
@@ -51,8 +55,37 @@ class testerClass:
         successRate = 1-(1/self.data.shape[0])*(self.target != y_pred).sum()
         print("Success rate of Gaussian Naive Bayes is:\t %.3f \n" % (successRate))
         
+    '''
+    
+    '''
+    def train_SVC(kernel="rbf",C=1.0,degree=0.7,degree=3)
+        
+        
+        
+    '''
+    Function to save model. 
+    String - outputfilepath will be extended by *.joblib.pkl to save it as
+             pickle archive 
+    '''
     def save_model(self,outputfilepath):
         # Create model file        
         filename = outputfilepath+'.joblib.pkl'
         joblib.dump(self.model, filename, compress=9)
         
+    '''
+    Function to load a model. 
+    String - modelfilepath must have extension of *.joblib.pkl to load it as
+             pickle archive
+    '''
+    def load_model(self,modelfilepath):
+        # Load model from file
+        if '\.joblib.pkl' not in modelfilepath:
+            self.model = joblib.load(modelfilepath)
+        else:
+            raise ValueError("Provided model path incorrect (*.joblib.pkl)")
+        
+testObj = testerClass()
+testObj.load_dataset("./testFileN10x1000.txt")
+testObj.train_GNB()
+testObj.save_model("GnB")
+testObj.load_model("GnB.joblib.pkl")
