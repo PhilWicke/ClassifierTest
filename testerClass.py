@@ -7,6 +7,7 @@ import numpy as np
 from sklearn.externals import joblib
 from sklearn.naive_bayes import GaussianNB
 from sklearn import svm
+from sklearn.metrics import confusion_matrix
 
 
 class testerClass:
@@ -52,9 +53,10 @@ class testerClass:
     def train_GNB(self):
         gnb = GaussianNB()
         self.model = gnb.fit(self.data, self.target)
-        y_pred = self.model.predict(self.data)
-        successRate = 1-(1/self.data.shape[0])*(self.target != y_pred).sum()
-        print("Success rate of Gaussian Naive Bayes is:\t %.3f \n" % (successRate))
+        
+        #y_pred = self.model.predict(self.data)
+        #successRate = 1-(1/self.data.shape[0])*(self.target != y_pred).sum()
+        #print("Success rate of Gaussian Naive Bayes is:\t %.3f \n" % (successRate))
         
     '''
     Support Vector Machine:
@@ -69,9 +71,21 @@ class testerClass:
         self.model = svm.SVC(kernel=kernel,C=C,gamma=gamma,degree=degree)
         self.model = self.model.fit(self.data, self.target)
         
-        cross_val_score = self.model.score(self.data,self.target)
-        print("Success rate of a SVC w/ linear kernel is:\t %.3f " % (cross_val_score))
+        #cross_val_score = self.model.score(self.data,self.target)
+        #print("Success rate of a SVC w/ linear kernel is:\t %.3f " % (cross_val_score))
         
+    '''
+    Function that returns a model prediction
+    '''
+    def predict(self,data):
+        return self.model.predict(data)
+        
+    """
+    Function to compute confusion matrix to evaluate the accuracy of a classification
+    """
+    def get_confusion_matrix(self,data,target):
+        y_pred = self.predict(data)
+        return confusion_matrix(target,y_pred)
         
     '''
     Function to save model. 
@@ -94,9 +108,3 @@ class testerClass:
             self.model = joblib.load(modelfilepath)
         else:
             raise ValueError("Provided model path incorrect (*.joblib.pkl)")
-        
-testObj = testerClass()
-testObj.load_dataset("./testFileN10x1000.txt")
-testObj.train_GNB()
-testObj.save_model("GnB")
-testObj.load_model("GnB.joblib.pkl")
