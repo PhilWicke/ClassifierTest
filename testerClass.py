@@ -74,6 +74,11 @@ class testerClass:
         #cross_val_score = self.model.score(self.data,self.target)
         #print("Success rate of a SVC w/ linear kernel is:\t %.3f " % (cross_val_score))
         
+    # Linear Kernel Version of SVM
+    def train_linearSVC(self,C=1.0):
+        self.model = svm.LinearSVC(C=C)
+        self.model = self.model.fit(self.data, self.target)
+        
     '''
     Function that returns a model prediction
     '''
